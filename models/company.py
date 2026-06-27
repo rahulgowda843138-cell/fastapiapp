@@ -1,6 +1,6 @@
-from sqlalchemy import Column,Integer,String,Enum,relationship
+from sqlalchemy import Column,Integer,String,Enum
+from sqlalchemy.orm import relationship
 from database import Base,engine,SessionLocal
-
 
 
 class Company(Base):
