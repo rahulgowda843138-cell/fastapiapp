@@ -11,7 +11,7 @@ import type {Company} from "./types/company";
 function App()
 {
   const [loading, setLoading] = useState(true);
-  const [error,setError] = useState<string | null>(null);
+  const [error,setError] = useState<Error | null>(null);
   const [companies, setCompanies] = useState<Company[]>([]);
 
   async function fetchCompanies() {
@@ -20,15 +20,14 @@ function App()
       const companies = await getCompanies();
       setCompanies(companies);
     } catch (error) {
-      setError(error);
+      setError(error as Error);
     } finally {
       setLoading(false);
     }
-
-    useEffect(() => {
-      fetchCompanies();
-    }, []);
   }
+  useEffect(() => {
+    fetchCompanies();
+  }, []);
   if (loading) {
     return <div>Loading...</div>;
   }
@@ -39,7 +38,8 @@ function App()
     <>
     <NavBar/>
     <Welcome/>
-    <CompanyCard key={companies.id}
+    <br />
+    <CompanyCard
     companies={companies}/>
     <JobCard/>
     <Footer/>
