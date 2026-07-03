@@ -4,6 +4,7 @@ from sqlalchemy.orm import Session
 
 from schemas.job import JobCreate, JobUpdate, JobResponse
 from models.job import Job
+from models.company import Company
 from database import get_db
 from utils.oauth2 import get_current_user, rol_required
 
@@ -12,6 +13,14 @@ router = APIRouter(prefix="/job", tags=["job"])
 
 @router.post("/", status_code=status.HTTP_201_CREATED, response_model=JobResponse)
 def create_job(job: JobCreate, db: Session = Depends(get_db), current_user=Depends(rol_required(["admin","hr"]))):
+    # Validate that the company exists
+    company = db.query(Company).filter(Company.id == job.company_id).first()
+    if not company:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail=f"Company with ID {job.company_id} not found"
+        )
+    
     db_job = Job(**job.dict())
     db.add(db_job)
     db.commit()
@@ -48,8 +57,18 @@ def update_job(job_id: int, job: JobUpdate, db: Session = Depends(get_db), curre
             detail="Job Not Found"
         )
 
-    for key, value in job.dict().items():
-        setattr(db_job, key, value)
+    # Validate that the company exists if company_id is being updated
+    if job.company_id is not None:
+        company = db.query(Company).filter(Company.id == job.company_id).first()
+        if not company:
+            raise HTTPException(
+                status_code=status.HTTP_404_NOT_FOUND,
+                detail=f"Company with ID {job.company_id} not found"
+            )
+
+    for key, value in job.dict(exclude_unset=True).items():
+        if value is not None:
+            setattr(db_job, key, value)
 
     db.commit()
     db.refresh(db_job)
