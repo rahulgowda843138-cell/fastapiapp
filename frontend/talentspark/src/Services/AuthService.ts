@@ -11,7 +11,9 @@ export const login = async (credentials:LoginRequest):Promise<LoginResponse>=>{
     const response = await axios.post<LoginResponse>(`${API_URL}/login`, formData, {
         headers: { "Content-Type": "application/x-www-form-urlencoded" }
     });
-    return response.data;
+    const data = response.data;
+    localStorage.setItem("token", data.access_token);
+    return data;
 }
 
 export const register = async (user:RegisterRequest):Promise<RegisterResponse>=>{
