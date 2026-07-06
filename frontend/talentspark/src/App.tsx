@@ -8,6 +8,7 @@ import Register from "./pages/Register";
 import {useEffect,useState} from "react";
 import { getCompanies,updateCompany,deleteCompany,createCompany } from "./Services/CompanyService";
 import type {Company} from "./types/company"
+import FloatingChat from "./components/FloatingChat";
 
 function App(){
   const [loading,setLoading] = useState(true);
@@ -106,6 +107,8 @@ function App(){
     />
     <JobCard />
     <Footer />
+    <FloatingChat />
+    
     </>
   )
 }

@@ -1,11 +1,28 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ChatService from "../Services/ChatService";
 import type { ChatMessage } from "../types/chat";
+
+const STORAGE_KEY = "career_chat_history";
+const SESSION_ID = "rahul123";
 
 const Chat = () => {
   const [message, setMessage] = useState("");
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [loading, setLoading] = useState(false);
+
+  // Load history when the component opens
+  useEffect(() => {
+    const saved = localStorage.getItem(STORAGE_KEY);
+
+    if (saved) {
+      setMessages(JSON.parse(saved));
+    }
+  }, []);
+
+  // Save history whenever it changes
+  useEffect(() => {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(messages));
+  }, [messages]);
 
   const handleSend = async () => {
     if (!message.trim()) return;
@@ -25,7 +42,7 @@ const Chat = () => {
 
     try {
       const response = await ChatService.sendMessage({
-        session_id: "rahul123",
+        session_id: SESSION_ID,
         message: userMessage,
       });
 
@@ -36,12 +53,12 @@ const Chat = () => {
           text: response.response,
         },
       ]);
-    } catch (error) {
+    } catch {
       setMessages((prev) => [
         ...prev,
         {
           role: "assistant",
-          text: "Unable to connect to the AI server.",
+          text: "Unable to connect to AI server.",
         },
       ]);
     }
@@ -49,17 +66,39 @@ const Chat = () => {
     setLoading(false);
   };
 
+  const clearHistory = () => {
+    localStorage.removeItem(STORAGE_KEY);
+    setMessages([]);
+  };
+
   return (
-    <div style={{ maxWidth: 800, margin: "40px auto" }}>
-      <h2>AI Chat Assistant</h2>
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        height: "100%",
+      }}
+    >
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+          padding: "10px",
+          borderBottom: "1px solid #444",
+        }}
+      >
+        <strong>AI Chat</strong>
+
+        <button onClick={clearHistory}>
+          Clear
+        </button>
+      </div>
 
       <div
         style={{
-          border: "1px solid #ccc",
-          height: 450,
+          flex: 1,
           overflowY: "auto",
           padding: 15,
-          marginBottom: 20,
         }}
       >
         {messages.map((msg, index) => (
@@ -70,7 +109,7 @@ const Chat = () => {
               marginBottom: 15,
             }}
           >
-            <b>{msg.role === "user" ? "You" : "AI"}</b>
+            <strong>{msg.role === "user" ? "You" : "AI"}</strong>
 
             <div>{msg.text}</div>
           </div>
@@ -79,11 +118,18 @@ const Chat = () => {
         {loading && <p>Thinking...</p>}
       </div>
 
-      <div style={{ display: "flex", gap: 10 }}>
+      <div
+        style={{
+          display: "flex",
+          gap: 10,
+          padding: 10,
+          borderTop: "1px solid #444",
+        }}
+      >
         <input
           style={{
             flex: 1,
-            padding: 12,
+            padding: 10,
           }}
           placeholder="Type your message..."
           value={message}
@@ -93,7 +139,9 @@ const Chat = () => {
           }}
         />
 
-        <button onClick={handleSend}>Send</button>
+        <button onClick={handleSend}>
+          Send
+        </button>
       </div>
     </div>
   );
