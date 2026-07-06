@@ -1,7 +1,8 @@
 
 from fastapi import FastAPI
 
-from routers import company,job,auth,chat
+from backend.schemas import rag
+from routers import company,job,auth,chat,rag
 from database import Base,engine
 from models import company as company_model,job as job_model, users as user_model
 from fastapi.middleware.cors import CORSMiddleware
@@ -19,6 +20,7 @@ app.include_router(auth.router)
 app.include_router(company.router)
 app.include_router(job.router)
 app.include_router(chat.router)
+app.include_router(rag.router)
 
 @app.get("/")
 def read_root():
