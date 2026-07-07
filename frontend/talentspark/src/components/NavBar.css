@@ -1,0 +1,184 @@
+/* ==========================================================================
+   NavBar.css - Glassmorphic Header Component
+   ========================================================================== */
+
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 70px;
+  
+  /* Glassmorphism Background */
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 30px;
+  
+  border-bottom: var(--border-light);
+  box-shadow: var(--shadow-sm);
+  z-index: 1000;
+  transition: var(--transition-smooth);
+}
+
+/* Left Section: Hamburger button & Logo */
+.navbar-left {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.navbar-left h1 {
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: 800;
+  background: var(--primary-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  letter-spacing: -0.03em;
+}
+
+/* Hamburger button on mobile */
+.hamburger-btn {
+  display: none; /* Hidden on large screens */
+  font-size: 1.5rem;
+  color: var(--text-main);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 5px 8px;
+  border-radius: var(--border-radius-sm);
+  transition: var(--transition-smooth);
+}
+
+.hamburger-btn:hover {
+  background: rgba(0, 0, 0, 0.05);
+}
+
+/* Center Section: Search Bar Container */
+.navbar-center {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  max-width: 600px;
+  margin: 0 20px;
+}
+
+.search-box {
+  width: 100%;
+  max-width: 480px;
+  height: 42px;
+  display: flex;
+  align-items: center;
+  border: 1px solid #cbd5e1;
+  border-radius: var(--border-radius-full);
+  overflow: hidden;
+  background: #f1f5f9;
+  transition: var(--transition-smooth);
+}
+
+.search-box:focus-within {
+  border-color: var(--primary-color);
+  background: #ffffff;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
+}
+
+.search-box input {
+  flex: 1;
+  border: none;
+  background: transparent;
+  outline: none;
+  padding: 0 16px;
+  font-size: 0.9rem;
+  color: var(--text-main);
+}
+
+.search-box input::placeholder {
+  color: var(--text-muted);
+}
+
+.search-box button {
+  width: 48px;
+  height: 100%;
+  border: none;
+  background: var(--primary-gradient);
+  color: white;
+  cursor: pointer;
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: var(--transition-smooth);
+}
+
+.search-box button:hover {
+  opacity: 0.9;
+}
+
+/* Right Section: User & Logout details */
+.navbar-right {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.user {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.logout-nav {
+  background: #fee2e2;
+  color: var(--accent-danger);
+  border: 1px solid #fecaca;
+  padding: 8px 16px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  border-radius: var(--border-radius-full);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: var(--transition-smooth);
+}
+
+.logout-nav:hover {
+  background: var(--accent-danger);
+  color: white;
+  border-color: var(--accent-danger);
+  transform: translateY(-1px);
+}
+
+/* ==========================================================================
+   Responsive Breakpoints
+   ========================================================================== */
+@media (max-width: 900px) {
+  .navbar {
+    padding: 0 15px;
+  }
+  
+  .hamburger-btn {
+    display: block; /* Shown on small viewports */
+  }
+
+  .navbar-center {
+    display: none; /* Hide search bar in navigation bar on mobile - we can place it on page */
+  }
+
+  .user {
+    display: none; /* Hide text user label to save horizontal space */
+  }
+  
+  .logout-nav {
+    padding: 6px 12px;
+    font-size: 0.8rem;
+  }
+}

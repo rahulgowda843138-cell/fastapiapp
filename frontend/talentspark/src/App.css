@@ -1,184 +1,235 @@
-.counter {
-  font-size: 16px;
-  padding: 5px 10px;
-  border-radius: 5px;
-  color: var(--accent);
-  background: var(--accent-bg);
-  border: 2px solid transparent;
-  transition: border-color 0.3s;
-  margin-bottom: 24px;
+/* ==========================================================================
+   App.css - Main Layout Styles
+   This file structures the dashboard, navigation sidebar, main content area,
+   and mobile overlay menus.
+   ========================================================================== */
 
-  &:hover {
-    border-color: var(--accent-border);
-  }
-  &:focus-visible {
-    outline: 2px solid var(--accent);
-    outline-offset: 2px;
-  }
-}
-
-.hero {
-  position: relative;
-
-  .base,
-  .framework,
-  .vite {
-    inset-inline: 0;
-    margin: 0 auto;
-  }
-
-  .base {
-    width: 170px;
-    position: relative;
-    z-index: 0;
-  }
-
-  .framework,
-  .vite {
-    position: absolute;
-  }
-
-  .framework {
-    z-index: 1;
-    top: 34px;
-    height: 28px;
-    transform: perspective(2000px) rotateZ(300deg) rotateX(44deg) rotateY(39deg)
-      scale(1.4);
-  }
-
-  .vite {
-    z-index: 0;
-    top: 107px;
-    height: 26px;
-    width: auto;
-    transform: perspective(2000px) rotateZ(300deg) rotateX(40deg) rotateY(39deg)
-      scale(0.8);
-  }
-}
-
-#center {
+.app {
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
-  gap: 25px;
-  place-content: center;
-  place-items: center;
-  flex-grow: 1;
-
-  @media (max-width: 1024px) {
-    padding: 32px 20px 24px;
-    gap: 18px;
-  }
 }
 
-#next-steps {
+/* Dashboard Wrapper */
+.dashboard {
   display: flex;
-  border-top: 1px solid var(--border);
-  text-align: left;
-
-  & > div {
-    flex: 1 1 0;
-    padding: 32px;
-    @media (max-width: 1024px) {
-      padding: 24px 20px;
-    }
-  }
-
-  .icon {
-    margin-bottom: 16px;
-    width: 22px;
-    height: 22px;
-  }
-
-  @media (max-width: 1024px) {
-    flex-direction: column;
-    text-align: center;
-  }
-}
-
-#docs {
-  border-right: 1px solid var(--border);
-
-  @media (max-width: 1024px) {
-    border-right: none;
-    border-bottom: 1px solid var(--border);
-  }
-}
-
-#next-steps ul {
-  list-style: none;
-  padding: 0;
-  display: flex;
-  gap: 8px;
-  margin: 32px 0 0;
-
-  .logo {
-    height: 18px;
-  }
-
-  a {
-    color: var(--text-h);
-    font-size: 16px;
-    border-radius: 6px;
-    background: var(--social-bg);
-    display: flex;
-    padding: 6px 12px;
-    align-items: center;
-    gap: 8px;
-    text-decoration: none;
-    transition: box-shadow 0.3s;
-
-    &:hover {
-      box-shadow: var(--shadow);
-    }
-    .button-icon {
-      height: 18px;
-      width: 18px;
-    }
-  }
-
-  @media (max-width: 1024px) {
-    margin-top: 20px;
-    flex-wrap: wrap;
-    justify-content: center;
-
-    li {
-      flex: 1 1 calc(50% - 8px);
-    }
-
-    a {
-      width: 100%;
-      justify-content: center;
-      box-sizing: border-box;
-    }
-  }
-}
-
-#spacer {
-  height: 88px;
-  border-top: 1px solid var(--border);
-  @media (max-width: 1024px) {
-    height: 48px;
-  }
-}
-
-.ticks {
+  margin-top: 70px; /* Offset for fixed top navbar */
+  min-height: calc(100vh - 70px);
   position: relative;
+}
+
+/* ==========================================================================
+   Navigation Sidebar (Desktop View)
+   ========================================================================== */
+.sidebar {
+  width: 280px;
+  background: var(--bg-sidebar);
+  color: var(--text-light);
+  
+  display: flex;
+  flex-direction: column;
+  padding: 30px 20px;
+  gap: 20px;
+  
+  height: calc(100vh - 70px);
+  position: fixed;
+  top: 70px;
+  left: 0;
+  
+  border-right: 1px solid rgba(255, 255, 255, 0.05);
+  z-index: 99;
+  transition: var(--transition-smooth);
+}
+
+.sidebar-brand h2 {
+  color: var(--secondary-color);
+  font-size: 1.5rem;
+  text-align: center;
+  margin-bottom: 25px;
+  letter-spacing: -0.02em;
+}
+
+.sidebar-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+/* Elegant Sidebar Navigation Buttons */
+.sidebar button {
+  padding: 14px 18px;
+  border-radius: var(--border-radius-md);
+  color: rgba(255, 255, 255, 0.7);
+  background: transparent;
+  font-size: 0.95rem;
+  font-weight: 500;
+  text-align: left;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+  transition: var(--transition-smooth);
+}
+
+.sidebar button:hover {
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--text-light);
+  transform: translateX(4px);
+}
+
+/* Active Page Highlight */
+.sidebar .active {
+  background: var(--primary-gradient);
+  color: white;
+  font-weight: 600;
+  box-shadow: 0 4px 14px rgba(59, 130, 246, 0.35);
+}
+
+.sidebar .active:hover {
+  background: var(--primary-gradient-hover);
+  transform: none; /* No translation on active button */
+}
+
+/* ==========================================================================
+   Main Content Area
+   ========================================================================== */
+.content {
+  flex: 1;
+  margin-left: 280px; /* Offset for desktop sidebar width */
+  padding: 40px;
+  overflow-y: auto;
+  transition: var(--transition-smooth);
+}
+
+/* ── Home Dashboard: side-by-side columns on wide screens ── */
+.home-dashboard-grid {
+  display: grid;
+  /* Two equal columns on wide screens, single column on mobile */
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
+  align-items: start; /* each column starts at the top */
+}
+
+@media (max-width: 1100px) {
+  .home-dashboard-grid {
+    grid-template-columns: 1fr; /* stack vertically on smaller screens */
+  }
+}
+
+/* Loading & Error Screens */
+.loading-screen,
+.error-screen {
+  height: 100vh;
   width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+  background: var(--bg-main);
+  padding: 20px;
+}
 
-  &::before,
-  &::after {
-    content: '';
-    position: absolute;
-    top: -4.5px;
-    border: 5px solid transparent;
+.loading-screen h2 {
+  color: var(--primary-color);
+  font-size: 1.5rem;
+  font-weight: 600;
+  animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 0.6; }
+  50% { opacity: 1; }
+}
+
+.error-screen h2 {
+  color: var(--accent-danger);
+}
+
+.error-screen p {
+  color: var(--text-muted);
+  text-align: center;
+  max-width: 400px;
+  margin-bottom: 10px;
+}
+
+.error-screen button {
+  padding: 12px 28px;
+  border-radius: var(--border-radius-full);
+  background: var(--primary-gradient);
+  color: white;
+  font-weight: 600;
+  box-shadow: var(--shadow-md);
+  transition: var(--transition-smooth);
+}
+
+.error-screen button:hover {
+  background: var(--primary-gradient-hover);
+  transform: translateY(-2px);
+}
+
+/* Cards Common Style */
+.card {
+  background: var(--bg-card);
+  border-radius: var(--border-radius-lg);
+  padding: 30px;
+  border: var(--border-light);
+  box-shadow: var(--shadow-sm);
+  transition: var(--transition-smooth);
+}
+
+.card:hover {
+  box-shadow: var(--shadow-md);
+}
+
+/* ==========================================================================
+   Responsive Styles & Mobile Sidebar Drawer
+   ========================================================================== */
+@media (max-width: 900px) {
+  .sidebar {
+    /* Transform sidebar into a mobile drawer overlay */
+    position: fixed;
+    top: 70px;
+    left: -280px; /* Hidden off-screen by default */
+    width: 280px;
+    height: calc(100vh - 70px);
+    z-index: 1001; /* High index to sit on top of content and overlays */
+    background: #0f172a;
+    box-shadow: none;
   }
-
-  &::before {
+  
+  /* Slide open state */
+  .sidebar.open {
     left: 0;
-    border-left-color: var(--border);
+    box-shadow: 10px 0 30px rgba(0, 0, 0, 0.25);
   }
-  &::after {
+
+  .sidebar-brand h2 {
+    display: block; /* Keep header title inside mobile drawer view */
+  }
+
+  /* Content fills full horizontal width since sidebar is floating drawer */
+  .content {
+    margin-left: 0;
+    padding: 24px 16px;
+  }
+
+  /* Mobile Backdrop overlay */
+  .sidebar-overlay {
+    position: fixed;
+    top: 70px;
+    left: 0;
     right: 0;
-    border-right-color: var(--border);
+    bottom: 0;
+    background: rgba(15, 23, 42, 0.6);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    z-index: 1000;
+    animation: fadeIn 0.25s ease-out;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
   }
 }

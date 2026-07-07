@@ -55,6 +55,7 @@ def embed_all_jobs(db: Session) -> int:
                                         "description": job.description or "",
                                         "salary": job.salary ,
                                         "job_id": job.id,}))
+    if points:
         qdrant.upsert(
             collection_name=COLLECTION_NAME,
             points=points
@@ -77,7 +78,7 @@ def search_jobs(query: str, top_k: int = 5) -> list[dict]:
             "salary": hit.payload.get("salary"),
             "score": round(hit.score, 4) 
         }
-        for hit in results.result
+        for hit in results.points
     ]
 
 def match_jobs_for_profile(skills:str, experience:str, top_k:int=5) -> list[dict]:

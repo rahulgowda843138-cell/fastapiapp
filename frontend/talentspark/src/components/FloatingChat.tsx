@@ -8,25 +8,30 @@ export default function FloatingChat() {
   return (
     <>
       {open ? (
-        <div className="chat-window">
-          <div className="chat-header">
-            <span>AI Assistant</span>
+        <div className="floating-chat">
+
+          <div className="floating-header">
+
+            <div>
+              🤖 AI Assistant
+            </div>
 
             <button
-              className="close-btn"
               onClick={() => setOpen(false)}
             >
               ✕
             </button>
+
           </div>
 
-          <div className="chat-body">
+          <div className="floating-body">
             <Chat />
           </div>
+
         </div>
       ) : (
         <button
-          className="chat-button"
+          className="floating-button"
           onClick={() => setOpen(true)}
         >
           💬

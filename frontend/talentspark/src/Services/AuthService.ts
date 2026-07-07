@@ -1,22 +1,53 @@
-import type {LoginRequest,LoginResponse,RegisterRequest,RegisterResponse} from "../types/user";
-import axios from "axios";
-const API_URL = "http://localhost:8000/auth";
+import api from "./api";
+import type {
+  LoginRequest,
+  LoginResponse,
+  RegisterRequest,
+  RegisterResponse,
+} from "../types/user";
 
-export const login = async (credentials:LoginRequest):Promise<LoginResponse>=>{
-    // Backend expects OAuth2PasswordRequestForm (form-encoded with "username" field)
-    const formData = new URLSearchParams();
-    formData.append("username", credentials.email);
-    formData.append("password", credentials.password);
+// ----------------------
+// Login
+// ----------------------
+export const login = async (
+  credentials: LoginRequest
+): Promise<LoginResponse> => {
+  const formData = new URLSearchParams();
 
-    const response = await axios.post<LoginResponse>(`${API_URL}/login`, formData, {
-        headers: { "Content-Type": "application/x-www-form-urlencoded" }
-    });
-    const data = response.data;
-    localStorage.setItem("token", data.access_token);
-    return data;
-}
+  // FastAPI OAuth2PasswordRequestForm expects "username"
+  formData.append("username", credentials.email);
+  formData.append("password", credentials.password);
 
-export const register = async (user:RegisterRequest):Promise<RegisterResponse>=>{
-    const response = await axios.post<RegisterResponse>(`${API_URL}/register`,user);
-    return response.data;
-}
+  const response = await api.post<LoginResponse>(
+    "/auth/login",
+    formData,
+    {
+      headers: {
+        "Content-Type":
+          "application/x-www-form-urlencoded",
+      },
+    }
+  );
+
+  localStorage.setItem(
+    "token",
+    response.data.access_token
+  );
+
+  return response.data;
+};
+
+// ----------------------
+// Register
+// ----------------------
+export const register = async (
+  user: RegisterRequest
+): Promise<RegisterResponse> => {
+  const response =
+    await api.post<RegisterResponse>(
+      "/auth/register",
+      user
+    );
+
+  return response.data;
+};

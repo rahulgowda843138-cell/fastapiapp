@@ -1,0 +1,141 @@
+/* ==========================================================================
+   ResumeAnalyse.css - AI Resume Analysis Layout Styles
+   ========================================================================== */
+
+.resume-page {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 30px;
+  align-items: start;
+}
+
+/* Form input Card */
+.resume-card {
+  background: var(--bg-card);
+  border: var(--border-light);
+  border-radius: var(--border-radius-lg);
+  padding: 30px;
+  box-shadow: var(--shadow-sm);
+}
+
+.resume-card h1 {
+  font-size: 1.75rem;
+  font-weight: 800;
+  margin-bottom: 8px;
+  background: var(--primary-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.resume-card p {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  margin-bottom: 20px;
+}
+
+.resume-card textarea {
+  background: #f8fafc;
+  border: 1px solid #cbd5e1;
+  border-radius: var(--border-radius-md);
+  padding: 16px;
+  font-size: 0.9rem;
+  line-height: 1.6;
+  margin-bottom: 20px;
+  transition: var(--transition-smooth);
+}
+
+.resume-card textarea:focus {
+  background: white;
+  border-color: var(--primary-color);
+}
+
+.resume-card button {
+  padding: 12px 28px;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: white;
+  background: var(--primary-gradient);
+  border-radius: var(--border-radius-full);
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.25);
+  transition: var(--transition-bounce);
+}
+
+.resume-card button:hover {
+  background: var(--primary-gradient-hover);
+  box-shadow: 0 6px 18px rgba(59, 130, 246, 0.35);
+  transform: translateY(-2px);
+}
+
+.resume-card button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Results Display Card */
+.analysis-card {
+  background: var(--bg-card);
+  border: var(--border-light);
+  border-radius: var(--border-radius-lg);
+  padding: 30px;
+  box-shadow: var(--shadow-sm);
+  max-height: 80vh;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.analysis-card h2 {
+  font-size: 1.35rem;
+  font-weight: 700;
+  margin-bottom: 20px;
+  color: var(--text-main);
+  border-bottom: var(--border-light);
+  padding-bottom: 12px;
+}
+
+.analysis-result-content {
+  font-size: 0.95rem;
+  color: var(--text-main);
+  line-height: 1.7;
+  white-space: pre-wrap; /* Preserves formatting but wraps line */
+}
+
+/* Styled sections inside parsed markdown block */
+.analysis-result-content h3 {
+  font-size: 1.15rem;
+  color: var(--primary-color);
+  margin-top: 20px;
+  margin-bottom: 8px;
+}
+
+.analysis-result-content li {
+  margin-left: 20px;
+  margin-bottom: 6px;
+}
+
+.analysis-card .empty {
+  text-align: center;
+  padding: 80px 20px;
+  color: var(--text-muted);
+  font-style: italic;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.analysis-card .empty::before {
+  content: '📄';
+  font-size: 2.5rem;
+  opacity: 0.5;
+}
+
+@media (max-width: 900px) {
+  .resume-page {
+    grid-template-columns: 1fr; /* Stack layout on mobile/tablet viewports */
+  }
+  
+  .analysis-card {
+    max-height: none;
+  }
+}

@@ -1,0 +1,189 @@
+/* ==========================================================================
+   RagSearch.css - Semantic Search Page Styles
+   ========================================================================== */
+
+.rag-page {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+/* Glass-like search input box */
+.rag-search-box {
+  background: var(--bg-card);
+  border: var(--border-light);
+  border-radius: var(--border-radius-lg);
+  padding: 35px;
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.rag-search-box h1 {
+  font-size: 2rem;
+  font-weight: 800;
+  margin-bottom: 8px;
+  background: var(--primary-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.rag-search-box p {
+  color: var(--text-muted);
+  font-size: 0.95rem;
+  margin-bottom: 25px;
+  max-width: 480px;
+}
+
+.search-row {
+  display: flex;
+  width: 100%;
+  max-width: 600px;
+  gap: 12px;
+}
+
+.search-row input {
+  flex: 1;
+  background: #f8fafc;
+  border: 1px solid #cbd5e1;
+  border-radius: var(--border-radius-full);
+  padding: 14px 22px;
+  font-size: 0.95rem;
+  transition: var(--transition-smooth);
+}
+
+.search-row input:focus {
+  background: white;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+.search-row button {
+  padding: 14px 30px;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: white;
+  background: var(--primary-gradient);
+  border-radius: var(--border-radius-full);
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.25);
+  transition: var(--transition-bounce);
+}
+
+.search-row button:hover {
+  background: var(--primary-gradient-hover);
+  box-shadow: 0 6px 16px rgba(59, 130, 246, 0.35);
+  transform: translateY(-2px);
+}
+
+.search-row button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Error Alert Box */
+.error-box {
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+  color: var(--accent-danger);
+  padding: 16px;
+  border-radius: var(--border-radius-md);
+  font-weight: 600;
+  text-align: center;
+}
+
+/* Result listing grids */
+.results {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.empty-box {
+  text-align: center;
+  padding: 50px;
+  color: var(--text-muted);
+  background: rgba(255, 255, 255, 0.5);
+  border: 1px dashed #cbd5e1;
+  border-radius: var(--border-radius-lg);
+  font-style: italic;
+}
+
+/* Semantic Search Job Result Card */
+.result-card {
+  background: var(--bg-card);
+  border: var(--border-light);
+  border-radius: var(--border-radius-lg);
+  padding: 28px;
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  position: relative;
+  transition: var(--transition-bounce);
+}
+
+.result-card:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-lg);
+  border-color: rgba(99, 102, 241, 0.15);
+}
+
+.result-card h2 {
+  font-size: 1.35rem;
+  color: var(--text-main);
+  margin: 0;
+  padding-right: 120px; /* Leave space for score badge */
+}
+
+.result-card p {
+  font-size: 0.95rem;
+  color: var(--text-muted);
+  line-height: 1.6;
+  margin: 0;
+}
+
+.result-card strong {
+  color: var(--text-main);
+}
+
+/* Match Score Badge */
+.score {
+  position: absolute;
+  top: 28px;
+  right: 28px;
+  background: #f0fdf4;
+  color: #16a34a;
+  border: 1px solid #bbf7d0;
+  font-size: 0.8rem;
+  font-weight: 700;
+  padding: 6px 14px;
+  border-radius: var(--border-radius-full);
+}
+
+@media (max-width: 600px) {
+  .search-row {
+    flex-direction: column;
+    gap: 12px;
+  }
+  
+  .search-row input,
+  .search-row button {
+    border-radius: var(--border-radius-md);
+  }
+
+  .result-card {
+    padding: 20px;
+  }
+
+  .result-card h2 {
+    padding-right: 0;
+  }
+
+  .score {
+    position: static;
+    margin-top: 10px;
+    align-self: flex-start;
+  }
+}

@@ -1,0 +1,87 @@
+/* ==========================================================================
+   Footer.css - Elegant Footer Section
+   ========================================================================== */
+
+.footer {
+  margin-top: auto; /* Push footer to bottom of viewport when main content is short */
+  background: #0f172a; /* Deep charcoal/blue */
+  color: #94a3b8; /* Slate-400 text color */
+  padding: 50px 40px 30px;
+  border-top: 1px solid #1e293b;
+}
+
+.footer-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 40px;
+}
+
+.footer h2 {
+  color: white;
+  font-size: 1.5rem;
+  margin-bottom: 12px;
+  letter-spacing: -0.02em;
+}
+
+.footer h4 {
+  color: white;
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 16px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.footer p {
+  font-size: 0.9rem;
+  color: #94a3b8;
+  line-height: 1.6;
+}
+
+.footer ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.footer li {
+  margin: 10px 0;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: var(--transition-smooth);
+}
+
+.footer li:hover {
+  color: var(--primary-color);
+  transform: translateX(2px);
+}
+
+.footer hr {
+  max-width: 1200px;
+  margin: 40px auto 20px;
+  border: 0;
+  border-top: 1px solid #1e293b;
+}
+
+.copyright {
+  text-align: center;
+  font-size: 0.85rem;
+  color: #64748b;
+}
+
+@media (max-width: 768px) {
+  .footer {
+    padding: 40px 20px 20px;
+  }
+
+  .footer-content {
+    gap: 30px;
+    grid-template-columns: 1fr; /* Stack layout on small viewports */
+  }
+
+  .footer hr {
+    margin: 30px 0 15px;
+  }
+}

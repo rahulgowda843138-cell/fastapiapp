@@ -1,10 +1,9 @@
 
 from fastapi import FastAPI
 
-from backend.schemas import rag
-from routers import company,job,auth,chat,rag
-from database import Base,engine
-from models import company as company_model,job as job_model, users as user_model
+from routers import company, job, auth, chat, rag
+from database import Base, engine
+from models import company as company_model, job as job_model, users as user_model
 from fastapi.middleware.cors import CORSMiddleware
 app=FastAPI()
 app.add_middleware(
