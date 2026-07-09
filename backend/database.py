@@ -16,6 +16,12 @@ if not _DB_URL:
 if _DB_URL.startswith("postgres://"):
     _DB_URL = _DB_URL.replace("postgres://", "postgresql://", 1)
 
+# Remove Supabase-specific pooling parameter that breaks psycopg2
+if "&supa=base-pooler.x" in _DB_URL:
+    _DB_URL = _DB_URL.replace("&supa=base-pooler.x", "")
+elif "?supa=base-pooler.x" in _DB_URL:
+    _DB_URL = _DB_URL.replace("?supa=base-pooler.x", "")
+
 SQLALCHEMY_DATABASE_URL = _DB_URL
 engine = create_engine(SQLALCHEMY_DATABASE_URL)
 SessionLocal = sessionmaker(autocommit=False,autoflush=False,bind=engine)
