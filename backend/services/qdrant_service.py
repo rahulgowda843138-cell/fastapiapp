@@ -6,7 +6,7 @@ from fastembed import TextEmbedding
 from sqlalchemy.orm import Session
 from models.job import Job
 
-load_dotenv()
+load_dotenv(override=True)
 
 COLLECTION_NAME = "job_descriptions"
 VECTOR_SIZE = 384  # BAAI/bge-small-en-v1.5 outputs 384-dim vectors

@@ -2,7 +2,7 @@ import os
 import traceback
 from dotenv import load_dotenv
 
-load_dotenv()
+load_dotenv(override=True)
 
 api_key = os.getenv("GROQ_API_KEY")
 

@@ -22,5 +22,5 @@ class CompanyResponse(CompanyBase):
     id:int
     jobs:list[JobResponse]
 
-    class config:
+    class Config:
         from_attributes=True

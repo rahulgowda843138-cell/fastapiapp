@@ -6,7 +6,7 @@ import type { Job } from "../types/job";
 // ---------------------
 export async function getJobs(): Promise<Job[]> {
   try {
-    const response = await api.get<Job[]>("/job");
+    const response = await api.get<Job[]>("/job/");
     return response.data;
   } catch (error) {
     console.error("Get Jobs Error:", error);
@@ -36,7 +36,7 @@ export async function createJob(
   job: Job
 ): Promise<Job> {
   try {
-    const response = await api.post<Job>("/job", job);
+    const response = await api.post<Job>("/job/", job);
     return response.data;
   } catch (error) {
     console.error("Create Job Error:", error);

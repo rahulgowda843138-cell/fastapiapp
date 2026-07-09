@@ -4,7 +4,7 @@ import type { Company } from "../types/company";
 // Get all companies
 export async function getCompanies(): Promise<Company[]> {
   try {
-    const response = await api.get<Company[]>("/company");
+    const response = await api.get<Company[]>("/company/");
     return response.data;
   } catch (error) {
     console.error("Get Companies Error:", error);
@@ -34,7 +34,7 @@ export async function createCompany(
 ): Promise<Company> {
   try {
     const response = await api.post<Company>(
-      "/company",
+      "/company/",
       company
     );
 

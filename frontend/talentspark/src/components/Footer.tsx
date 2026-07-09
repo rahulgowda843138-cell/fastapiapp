@@ -8,7 +8,7 @@ function Footer() {
 
         <div>
 
-          <h2>TalentSpark</h2>
+          <h2>Rahul Spark</h2>
 
           <p>
             AI Powered Recruitment Platform

@@ -161,7 +161,25 @@ function App() {
   };
 
   const handleSearch = (query: string) => {
-    console.log("Searching:", query);
+    const q = query.toLowerCase().trim();
+    if (!q) return;
+
+    if (q.includes("chat") || q.includes("ai chat") || q.includes("assistant")) {
+      setPage("chat");
+    } else if (q.includes("resume") || q.includes("analysis")) {
+      setPage("resume");
+    } else if (q.includes("match") || q.includes("compare")) {
+      setPage("jobmatch");
+    } else if (q.includes("search") || q.includes("rag")) {
+      setPage("search");
+    } else if (q.includes("opening") || q.includes("job") || q.includes("work")) {
+      setPage("joblist");
+    } else if (q.includes("home") || q.includes("dashboard") || q.includes("company")) {
+      setPage("home");
+    } else {
+      setPage("joblist");
+      showToast(`Showing job openings for "${query}"`);
+    }
   };
 
   useEffect(() => {
@@ -249,11 +267,11 @@ function App() {
       />
 
       <div className="dashboard">
-        
+
         {/* Overlay backdrop when sidebar is slid open on mobile screens */}
         {isMobileMenuOpen && (
-          <div 
-            className="sidebar-overlay" 
+          <div
+            className="sidebar-overlay"
             onClick={() => setIsMobileMenuOpen(false)}
           ></div>
         )}
@@ -261,7 +279,7 @@ function App() {
         <aside className={`sidebar ${isMobileMenuOpen ? "open" : ""}`}>
 
           <div className="sidebar-brand">
-            <h2>TalentSpark</h2>
+            <h2>Rahul Spark</h2>
           </div>
 
           <nav className="sidebar-nav">

@@ -3,11 +3,13 @@
    ========================================================================== */
 
 .footer {
+  margin-left: 280px; /* Offset for desktop sidebar width */
   margin-top: auto; /* Push footer to bottom of viewport when main content is short */
   background: #0f172a; /* Deep charcoal/blue */
   color: #94a3b8; /* Slate-400 text color */
   padding: 50px 40px 30px;
   border-top: 1px solid #1e293b;
+  transition: var(--transition-smooth); /* Match sidebar transitions */
 }
 
 .footer-content {
@@ -73,6 +75,7 @@
 
 @media (max-width: 768px) {
   .footer {
+    margin-left: 0;
     padding: 40px 20px 20px;
   }
 

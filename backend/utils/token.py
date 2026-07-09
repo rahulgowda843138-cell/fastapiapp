@@ -9,7 +9,7 @@ import os
 from database import get_db
 from models import users
 
-load_dotenv()
+load_dotenv(override=True)
 SECRET_KEY = os.getenv("SECRET_KEY")
 ALGORITHM = os.getenv("ALGORITHM")
 

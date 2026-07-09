@@ -123,23 +123,12 @@ def resume_analyse_text(
 @router.post("/job-match")
 def job_match(request: JobMatchRequest):
 
-    resume = request.resume_text.lower()
-    job = request.job_description.lower()
-
-    resume_words = set(resume.split())
-    job_words = set(job.split())
-
-    matched = sorted(list(resume_words & job_words))
-    missing = sorted(list(job_words - resume_words))
-
-    if len(job_words) == 0:
-        score = 0
-    else:
-        score = round(
-            (len(matched) / len(job_words)) * 100,
-            2,
-        )
-
+    from services.rag_service import ai_job_match
+    
+    result = ai_job_match(request.resume_text, request.job_description)
+    
+    score = result.get("match_score", 0)
+    
     if score >= 80:
         recommendation = "Excellent Match"
     elif score >= 60:
@@ -151,7 +140,7 @@ def job_match(request: JobMatchRequest):
 
     return {
         "match_score": score,
-        "matched_skills": matched,
-        "missing_skills": missing,
+        "matched_skills": result.get("matched_skills", []),
+        "missing_skills": result.get("missing_skills", []),
         "recommendation": recommendation,
-    }
+    }

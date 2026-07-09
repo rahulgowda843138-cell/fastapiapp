@@ -12,7 +12,7 @@ router = APIRouter(prefix="/job", tags=["job"])
 
 
 @router.post("/", status_code=status.HTTP_201_CREATED, response_model=JobResponse)
-def create_job(job: JobCreate, db: Session = Depends(get_db), current_user=Depends(rol_required(["admin","hr"]))):
+def create_job(job: JobCreate, db: Session = Depends(get_db), current_user=Depends(get_current_user)):
     # Validate that the company exists
     company = db.query(Company).filter(Company.id == job.company_id).first()
     if not company:

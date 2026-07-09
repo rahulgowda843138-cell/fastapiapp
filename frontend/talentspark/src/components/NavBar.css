@@ -1,5 +1,5 @@
 /* ==========================================================================
-   NavBar.css - Glassmorphic Header Component
+   NavBar.css - Premium Glassmorphic Header Component
    ========================================================================== */
 
 .navbar {
@@ -9,18 +9,18 @@
   right: 0;
   height: 70px;
   
-  /* Glassmorphism Background */
-  background: rgba(255, 255, 255, 0.85);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  /* Upgraded Glassmorphism Background */
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
   
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 30px;
+  padding: 0 40px;
   
-  border-bottom: var(--border-light);
-  box-shadow: var(--shadow-sm);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.03);
   z-index: 1000;
   transition: var(--transition-smooth);
 }
@@ -34,17 +34,24 @@
 
 .navbar-left h1 {
   margin: 0;
-  font-size: 1.5rem;
+  font-size: 1.6rem;
   font-weight: 800;
   background: var(--primary-gradient);
   -webkit-background-clip: text;
+  background-clip: text;
   -webkit-text-fill-color: transparent;
   letter-spacing: -0.03em;
+  filter: drop-shadow(0 2px 8px rgba(59, 130, 246, 0.4));
+  transition: transform 0.3s ease;
+}
+
+.navbar-left h1:hover {
+  transform: scale(1.02);
 }
 
 /* Hamburger button on mobile */
 .hamburger-btn {
-  display: none; /* Hidden on large screens */
+  display: none;
   font-size: 1.5rem;
   color: var(--text-main);
   background: transparent;
@@ -71,20 +78,22 @@
 .search-box {
   width: 100%;
   max-width: 480px;
-  height: 42px;
+  height: 44px;
   display: flex;
   align-items: center;
-  border: 1px solid #cbd5e1;
+  border: 1px solid rgba(0, 0, 0, 0.06);
   border-radius: var(--border-radius-full);
   overflow: hidden;
-  background: #f1f5f9;
-  transition: var(--transition-smooth);
+  background: #ffffff;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.02), 0 2px 8px rgba(0, 0, 0, 0.03);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .search-box:focus-within {
   border-color: var(--primary-color);
+  box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.15), 0 4px 12px rgba(0, 0, 0, 0.05);
+  transform: translateY(-1px);
   background: #ffffff;
-  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
 }
 
 .search-box input {
@@ -92,69 +101,94 @@
   border: none;
   background: transparent;
   outline: none;
-  padding: 0 16px;
-  font-size: 0.9rem;
+  padding: 0 20px;
+  font-size: 0.95rem;
   color: var(--text-main);
+  font-weight: 500;
 }
 
 .search-box input::placeholder {
-  color: var(--text-muted);
+  color: #94a3b8;
+  font-weight: 400;
 }
 
 .search-box button {
-  width: 48px;
+  width: 52px;
   height: 100%;
   border: none;
-  background: var(--primary-gradient);
-  color: white;
+  background: transparent;
+  color: var(--text-muted);
   cursor: pointer;
-  font-size: 1rem;
+  font-size: 1.1rem;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: var(--transition-smooth);
+  transition: all 0.2s ease;
+  position: relative;
+}
+
+.search-box button::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 20%;
+  height: 60%;
+  width: 1px;
+  background: rgba(0, 0, 0, 0.08);
 }
 
 .search-box button:hover {
-  opacity: 0.9;
+  color: var(--primary-color);
+  transform: scale(1.1);
+}
+
+.search-box button:active {
+  transform: scale(0.95);
 }
 
 /* Right Section: User & Logout details */
 .navbar-right {
   display: flex;
   align-items: center;
-  gap: 15px;
+  gap: 16px;
 }
 
 .user {
   font-size: 0.9rem;
   font-weight: 600;
-  color: var(--text-muted);
+  color: var(--text-main);
+  background: #f8fafc;
+  padding: 6px 14px;
+  border-radius: var(--border-radius-full);
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 8px;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.02);
 }
 
 .logout-nav {
-  background: #fee2e2;
-  color: var(--accent-danger);
-  border: 1px solid #fecaca;
-  padding: 8px 16px;
+  background: #ffffff;
+  color: var(--text-muted);
+  border: 1px solid #e2e8f0;
+  padding: 8px 18px;
   font-size: 0.85rem;
   font-weight: 600;
   border-radius: var(--border-radius-full);
   cursor: pointer;
   display: flex;
   align-items: center;
-  gap: 6px;
-  transition: var(--transition-smooth);
+  gap: 8px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
 }
 
 .logout-nav:hover {
   background: var(--accent-danger);
   color: white;
   border-color: var(--accent-danger);
-  transform: translateY(-1px);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(239, 68, 68, 0.25);
 }
 
 /* ==========================================================================
@@ -166,19 +200,19 @@
   }
   
   .hamburger-btn {
-    display: block; /* Shown on small viewports */
+    display: block;
   }
 
   .navbar-center {
-    display: none; /* Hide search bar in navigation bar on mobile - we can place it on page */
+    display: none;
   }
 
   .user {
-    display: none; /* Hide text user label to save horizontal space */
+    display: none;
   }
   
   .logout-nav {
-    padding: 6px 12px;
+    padding: 6px 14px;
     font-size: 0.8rem;
   }
 }
