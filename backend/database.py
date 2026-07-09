@@ -8,7 +8,9 @@ from dotenv import load_dotenv
 load_dotenv()
 
 # Use DATABASE_URL from environment if available (like on Render), otherwise use localhost
-_DB_URL = os.getenv("DATABASE_URL", "postgresql://postgres:abmin123@localhost:5432/student_db")
+_DB_URL = os.getenv("DATABASE_URL", "").strip().strip('"').strip("'")
+if not _DB_URL:
+    _DB_URL = "postgresql://postgres:abmin123@localhost:5432/student_db"
 
 # SQLAlchemy 1.4+ requires "postgresql://" instead of "postgres://"
 if _DB_URL.startswith("postgres://"):
