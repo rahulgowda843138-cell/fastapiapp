@@ -1,4 +1,4 @@
-from backend.services import qdrant_service
+
 # pyrefly: ignore [missing-import]
 from fastapi import APIRouter, Depends, HTTPException
 # pyrefly: ignore [missing-import]
