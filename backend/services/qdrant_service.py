@@ -1,8 +1,13 @@
 import os
+# pyrefly: ignore [missing-import]
 from dotenv import load_dotenv
+# pyrefly: ignore [missing-import]
 from qdrant_client import QdrantClient
+# pyrefly: ignore [missing-import]
 from qdrant_client.models import Distance, VectorParams, PointStruct
+# pyrefly: ignore [missing-import]
 from fastembed import TextEmbedding
+# pyrefly: ignore [missing-import]
 from sqlalchemy.orm import Session
 from models.job import Job
 

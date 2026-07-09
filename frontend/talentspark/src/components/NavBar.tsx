@@ -27,7 +27,7 @@ function NavBar({ onSearch, onLogout, onToggleMenu }: Props) {
         <button className="hamburger-btn" onClick={onToggleMenu} aria-label="Toggle Navigation Menu">
           ☰
         </button>
-        <h1>TalentSpark</h1>
+        <h1>Rahul Spark</h1>
       </div>
 
       {/* Search */}

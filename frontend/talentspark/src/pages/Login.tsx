@@ -37,7 +37,7 @@ function Login({ onLogin, onSwitchToRegister }: Props) {
 
       <div className="login-card">
 
-        <h1>TalentSpark</h1>
+        <h1>Rahul Spark</h1>
 
         <h3>Welcome Back 👋</h3>
 

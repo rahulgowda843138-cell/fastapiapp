@@ -1,17 +1,8 @@
 import axios from "axios";
 
-/*
-Change only the .env file when deploying.
-
-Development:
-VITE_API_URL=http://localhost:8000
-
-Production:
-VITE_API_URL=https://your-backend-url.com
-*/
 
 export const API_BASE_URL =
-  import.meta.env.VITE_API_URL || "http://localhost:8000";
+  import.meta.env.VITE_API_URL;
 
 const api = axios.create({
   baseURL: API_BASE_URL,

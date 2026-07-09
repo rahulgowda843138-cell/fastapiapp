@@ -1,5 +1,6 @@
 import os
 import traceback
+# pyrefly: ignore [missing-import]
 from dotenv import load_dotenv
 
 load_dotenv(override=True)
@@ -13,12 +14,17 @@ print("API KEY FOUND:", bool(api_key))
 print("=" * 60)
 
 try:
+    # pyrefly: ignore [missing-import]
     from langchain_groq import ChatGroq
+    # pyrefly: ignore [missing-import]
     from langchain_core.prompts import (
         ChatPromptTemplate,
         MessagesPlaceholder,
     )
+    # pyrefly: ignore [missing-import]
     from langchain_core.runnables.history import RunnableWithMessageHistory
+    
+    # pyrefly: ignore [missing-import]
     from langchain_community.chat_message_histories import ChatMessageHistory
 
     print("All LangChain imports successful.")

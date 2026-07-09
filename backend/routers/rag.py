@@ -1,4 +1,6 @@
+# pyrefly: ignore [missing-import]
 from fastapi import APIRouter, Depends, Body
+# pyrefly: ignore [missing-import]
 from sqlalchemy.orm import Session
 
 from database import get_db
@@ -143,4 +145,4 @@ def job_match(request: JobMatchRequest):
         "matched_skills": result.get("matched_skills", []),
         "missing_skills": result.get("missing_skills", []),
         "recommendation": recommendation,
-    }
+    }

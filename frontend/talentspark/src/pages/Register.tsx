@@ -41,7 +41,7 @@ function Register({ onSwitchToLogin }: Props) {
     <div className="register-page">
       <div className="register-card">
 
-        <h1>TalentSpark</h1>
+        <h1>Rahul Spark</h1>
 
         <h3>Create Account 🚀</h3>
 
