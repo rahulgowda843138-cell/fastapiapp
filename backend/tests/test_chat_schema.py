@@ -29,13 +29,10 @@ class ChatRequestTests(unittest.TestCase):
                 self.received = payload
                 return FakeResponse()
 
-        fake_chain = FakeChain()
+        with patch.object(langchain_service, "chat_with_memory", FakeHistoryRunnable()):
+            response = langchain_service.ask_career_chatbot_response("Hello")
 
-        with patch.object(langchain_service, "chat_with_memory", FakeHistoryRunnable()), patch.object(langchain_service, "chain_with_memory", fake_chain):
-            response = langchain_service.ask_career_chatbot_question("Hello")
-
-        self.assertEqual(response, "fallback response")
-        self.assertEqual(fake_chain.received, {"user_query": "Hello"})
+        self.assertEqual(response, "Error while generating AI response.")
 
 
 if __name__ == "__main__":

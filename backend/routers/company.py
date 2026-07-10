@@ -2,8 +2,7 @@
 from fastapi import APIRouter, HTTPException, Depends, status
 # pyrefly: ignore [missing-import]
 from sqlalchemy.orm import Session
-# pyrefly: ignore [missing-import]
-from sqlalchemy.ext.asyncio import AsyncSession
+
 # pyrefly: ignore [missing-import]
 from sqlalchemy.future import select
 # pyrefly: ignore [missing-import]
@@ -25,16 +24,16 @@ router = APIRouter(
     status_code=status.HTTP_201_CREATED,
     response_model=CompanyResponse
 )
-async def create_company(
+def create_company(
     company: CompanyCreate,
-    db: AsyncSession = Depends(get_db),
+    db: Session = Depends(get_db),
     current_user=Depends(get_current_user)):
     try:
         db_company = Company(**company.dict())
 
         db.add(db_company)
-        await db.commit()
-        await db.refresh(db_company)
+        db.commit()
+        db.refresh(db_company)
         return db_company
     except HTTPException:
         raise
@@ -50,11 +49,11 @@ async def create_company(
     status_code=status.HTTP_200_OK,
     response_model=list[CompanyResponse]
 )
-async def get_all_company(
-    db: AsyncSession = Depends(get_db),
+def get_all_company(
+    db: Session = Depends(get_db),
     current_user=Depends(get_current_user)):
     try:
-        result = await db.execute(select(Company)).options(selectinload(Company.jobs))
+        result = db.execute(select(Company).options(selectinload(Company.jobs)))
         companies = result.scalars().all()
         return companies
     except HTTPException:
@@ -71,12 +70,12 @@ async def get_all_company(
     status_code=status.HTTP_200_OK,
     response_model=CompanyResponse
 )
-async def get_company(
+def get_company(
     company_id: int,
-    db: AsyncSession = Depends(get_db),
+    db: Session = Depends(get_db),
     current_user=Depends(get_current_user)):
     try:
-        result = await db.execute(select(Company).filter(Company.id == company_id))
+        result = db.execute(select(Company).filter(Company.id == company_id))
         company = result.scalars().first()
 
         if not company:
@@ -99,13 +98,13 @@ async def get_company(
     status_code=status.HTTP_200_OK,
     response_model=CompanyResponse
 )               
-async def update_company(
+def update_company(
     company_id: int,
     company: CompanyUpdate,
-    db: AsyncSession = Depends(get_db),
+    db: Session = Depends(get_db),
     current_user=Depends(get_current_user)):
     try:
-        result = await db.execute(select(Company).filter(Company.id == company_id))
+        result = db.execute(select(Company).filter(Company.id == company_id))
         db_company = result.scalars().first()
 
         if not db_company:
@@ -116,8 +115,8 @@ async def update_company(
         for key, value in company.dict().items():
             setattr(db_company, key, value)
 
-        await db.commit()
-        await db.refresh(db_company)
+        db.commit()
+        db.refresh(db_company)
         return db_company
     except HTTPException:
         raise
@@ -132,12 +131,12 @@ async def update_company(
     "/{company_id}",
     status_code=status.HTTP_204_NO_CONTENT
 )
-async def delete_company(
+def delete_company(
     company_id: int,
-    db: AsyncSession = Depends(get_db),
+    db: Session = Depends(get_db),
     current_user=Depends(get_current_user)):
     try:
-        result = await db.execute(select(Company).filter(Company.id == company_id))
+        result = db.execute(select(Company).filter(Company.id == company_id))
         db_company = result.scalars().first()
 
         if not db_company:
@@ -146,8 +145,8 @@ async def delete_company(
             detail="Company not found"
         )
 
-        await db.delete(db_company)
-        await db.commit()
+        db.delete(db_company)
+        db.commit()
         return 
     except HTTPException:
         raise

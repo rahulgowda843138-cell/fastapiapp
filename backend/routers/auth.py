@@ -3,9 +3,6 @@
 from fastapi import APIRouter, Depends, HTTPException
 # pyrefly: ignore [missing-import]
 from sqlalchemy.orm import Session
-# pyrefly: ignore [missing-import]
-from sqlalchemy.ext.asyncio import AsyncSession
-# pyrefly: ignore [missing-import]
 from sqlalchemy.future import select
 # pyrefly: ignore [missing-import]
 from models.users import User
@@ -20,9 +17,9 @@ from utils.token import create_access_token
 router = APIRouter(prefix="/auth", tags=["Auth"])
 
 @router.post("/register", response_model=UserResponse)
-async def register(user: UserCreate, db: AsyncSession = Depends(get_db)):
+def register(user: UserCreate, db: Session = Depends(get_db)):
     try:
-        result = await db.execute(select(User).filter(User.email == user.email))
+        result = db.execute(select(User).filter(User.email == user.email))
         existing_user = result.scalars().first()
         if existing_user:
             raise HTTPException(status_code=400, detail="Email already exists")
@@ -34,19 +31,19 @@ async def register(user: UserCreate, db: AsyncSession = Depends(get_db)):
             role=user.role
         )
         db.add(db_user)
-        await db.commit()
-        await db.refresh(db_user)
+        db.commit()
+        db.refresh(db_user)
         return db_user
     except HTTPException:
         raise
     except Exception as e: 
-        await db.rollback()
+        db.rollback()
         raise HTTPException(status_code=500, detail=f"Database Error during registration: {str(e)}")
 
 @router.post("/login", response_model=Token)
-async def login(form_data: OAuth2PasswordRequestForm = Depends(), db: Session = Depends(get_db)):
+def login(form_data: OAuth2PasswordRequestForm = Depends(), db: Session = Depends(get_db)):
     try:
-        result = await db.execute(select(User).filter(User.email == form_data.username))
+        result = db.execute(select(User).filter(User.email == form_data.username))
         existing_user = result.scalars().first()
         if not existing_user:
             raise HTTPException(status_code=404, detail="User not found")
