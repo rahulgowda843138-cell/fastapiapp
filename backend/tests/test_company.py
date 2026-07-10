@@ -29,10 +29,9 @@ def test_create_and_get_company(client: TestClient):
         headers=headers,
         json={
             "name": "Tech Corp",
-            "description": "A tech company",
-            "website": "https://techcorp.example.com",
-            "location": "San Francisco, CA",
-            "logo_url": "https://example.com/logo.png"
+            "email": "contact@techcorp.example.com",
+            "phone": "+1234567890",
+            "location": "San Francisco, CA"
         }
     )
     assert response.status_code == 201

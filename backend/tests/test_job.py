@@ -31,8 +31,8 @@ def test_create_and_get_job(client: TestClient):
         headers=headers,
         json={
             "name": "Job Corp",
-            "description": "A job company",
-            "website": "https://jobcorp.example.com",
+            "email": "contact@jobcorp.example.com",
+            "phone": "+1987654321",
             "location": "New York, NY"
         }
     )
@@ -61,6 +61,6 @@ def test_create_and_get_job(client: TestClient):
     assert data["title"] == "Software Engineer"
     
     # Get all jobs
-    list_resp = client.get("/job/")
+    list_resp = client.get("/job/", headers=headers)
     assert list_resp.status_code == 200
     assert len(list_resp.json()) > 0
