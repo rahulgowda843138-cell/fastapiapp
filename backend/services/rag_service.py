@@ -51,9 +51,12 @@ def rag_job_search(question: str) -> str:
         for r in results
     ])
 
-    response = rag_chain.invoke({"context": context, "question": question})
-
-    return response.content
+    try:
+        response = rag_chain.invoke({"context": context, "question": question})
+        return response.content
+    except Exception as e:
+        print(f"RAG Chat Error: {e}")
+        return "Sorry! Unable to answer your question at this time. Please check your AI configuration."
 
 import json
 
@@ -93,8 +96,14 @@ def ai_job_match(resume_text: str, job_description: str) -> dict:
     except Exception as e:
         print("AI Job Match Error:", e)
         # Fallback to naive if LLM fails
-        resume_words = set(resume_text.lower().split())
-        job_words = set(job_description.lower().split())
+        import re
+        def extract_keywords(text):
+            words = set(re.findall(r'\b[a-zA-Z]{3,}\b', text.lower()))
+            stop_words = {'and', 'the', 'for', 'with', 'you', 'are', 'this', 'that', 'will', 'have', 'your', 'our', 'from'}
+            return words - stop_words
+            
+        resume_words = extract_keywords(resume_text)
+        job_words = extract_keywords(job_description)
         matched = sorted(list(resume_words & job_words))
         missing = sorted(list(job_words - resume_words))
         score = round((len(matched) / len(job_words)) * 100, 2) if job_words else 0

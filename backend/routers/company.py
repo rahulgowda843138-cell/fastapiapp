@@ -29,7 +29,7 @@ def create_company(
     db: Session = Depends(get_db),
     current_user=Depends(get_current_user)):
     try:
-        db_company = Company(**company.dict())
+        db_company = Company(**company.model_dump())
 
         db.add(db_company)
         db.commit()
@@ -112,7 +112,7 @@ def update_company(
                 status_code=status.HTTP_404_NOT_FOUND,
                 detail="Company not found"
             )
-        for key, value in company.dict().items():
+        for key, value in company.model_dump().items():
             setattr(db_company, key, value)
 
         db.commit()

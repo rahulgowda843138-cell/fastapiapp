@@ -23,7 +23,7 @@ def create_job(job: JobCreate, db: Session = Depends(get_db), current_user=Depen
             detail=f"Company with ID {job.company_id} not found"
         )
     
-    db_job = Job(**job.dict())
+    db_job = Job(**job.model_dump())
     db.add(db_job)
     db.commit()
     db.refresh(db_job)
@@ -68,7 +68,7 @@ def update_job(job_id: int, job: JobUpdate, db: Session = Depends(get_db), curre
                 detail=f"Company with ID {job.company_id} not found"
             )
 
-    for key, value in job.dict(exclude_unset=True).items():
+    for key, value in job.model_dump(exclude_unset=True).items():
         if value is not None:
             setattr(db_job, key, value)
 
